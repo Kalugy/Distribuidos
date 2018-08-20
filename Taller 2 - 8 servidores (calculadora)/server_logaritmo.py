@@ -17,7 +17,7 @@ class miHandler(SocketServer.BaseRequestHandler):
 def main():
 	print 'Logaritmo socket'
 	host1='localhost'
-	puerto1 = 8501 #Entre 0 y 1000, por los 9000 no estan usando
+	puerto1 = 8502 #Entre 0 y 1000, por los 9000 no estan usando
 
 	socketsuma = SocketServer.TCPServer((host1,puerto1),miHandler)
 	socketsuma.serve_forever()

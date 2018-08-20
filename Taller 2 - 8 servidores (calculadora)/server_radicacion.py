@@ -17,7 +17,7 @@ class miHandler(SocketServer.BaseRequestHandler):
 def main():
 	print 'Radicar socket'
 	host1='localhost'
-	puerto1 = 9003 #Entre 0 y 1000, por los 9000 no estan usando
+	puerto1 = 9004 #Entre 0 y 1000, por los 9000 no estan usando
 
 	socketsuma = SocketServer.TCPServer((host1,puerto1),miHandler)
 	socketsuma.serve_forever()

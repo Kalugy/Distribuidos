@@ -2,26 +2,34 @@ import SocketServer
 import socket
 import math
 from time import sleep
-
+#al momento de enviar dos datos al servidor debe esperar este tiempo:
 SLEEP_TIME = 0.1
 
+#creacion de sockets para la conexion
+def nuevosocket(host_name,puerto,palabra1,palabra3):
+	respuesta = ""
+	host1 =host_name
+	puerto1=puerto
+	socket_name=socket.socket()
+	socket_name.connect((host1,puerto1))
+	socket_name.send(palabra1)
+	sleep(SLEEP_TIME)
+	socket_name.send(palabra3)
+	respuesta = socket_name.recv(1024)
+	socket_name.close()
+	return respuesta
 
 class miHandler(SocketServer.BaseRequestHandler):
 	def handle(self):
-
-
+		#Recibe el num del cliente
 		self.num=str(self.request.recv(1024))
-
-		self.longitud=len(self.num)
-
+		#defincion de variables locales
 		self.palabra1=""
 		self.palabra2=""
 		self.palabra3=""
-		self.cuenta = 0
+		self.cuenta=0
 		self.contador=0
-
-
-
+		#cuando cuantas veces esta un signo dentro de la palabra y las separa segun la cantidad de signos
 		for carac in self.num:
 		    if carac == ' ':
 				self.cuenta+=1
@@ -33,123 +41,38 @@ class miHandler(SocketServer.BaseRequestHandler):
 				   self.palabra2+=carac
 			   if self.cuenta==2:
 				   self.palabra3+=carac
-
 		#print "este es el contador",self.contador
+		#Recitifcamos que divida bien las palabras
 		print "word1",self.palabra1
 		print "word2",self.palabra2
 		print "word3",self.palabra3
 		print "aca cuantas veces encontro el signo",self.cuenta
-
+		#dependiendo la operacion (palabra2) entrara al if
 		if(self.palabra2 == 'suma' or self.palabra2 == '+'):
-			host1 ='localhost'
-			puerto1=6000
-			socketsuma=socket.socket()
-			socketsuma.connect((host1,puerto1))
-			
-			socketsuma.send(self.palabra1)
-			sleep(SLEEP_TIME)
-			socketsuma.send(self.palabra3)
-			self.respuesta = socketsuma.recv(1024)
-			socketsuma.close()
-
-			print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la suma ', self.respuesta
-
-		if(self.palabra2 == 'resta' or self.palabra2 == '-'):
-			host1 ='localhost'
-			puerto1=6500
-			socketresta=socket.socket()
-			socketresta.connect((host1,puerto1))
-			
-			socketresta.send(self.palabra1)
-			sleep(SLEEP_TIME)
-			socketresta.send(self.palabra3)
-			self.respuesta = socketresta.recv(1024)
-			socketresta.close()
-
-			print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la resta ', self.respuesta
-
-		if(self.palabra2 == 'multiplicar' or self.palabra2 == '*'):
-			host1 ='localhost'
-			puerto1=7000
-			socketmultiplicacion=socket.socket()
-			socketmultiplicacion.connect((host1,puerto1))
-			
-			socketmultiplicacion.send(self.palabra1)
-			sleep(SLEEP_TIME)
-			socketmultiplicacion.send(self.palabra3)
-			self.respuesta = socketmultiplicacion.recv(1024)
-			socketmultiplicacion.close()
-
-			print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la multiplicacion es ', self.respuesta
-
-		if(self.palabra2 == 'dividir' or self.palabra2 == '/'):
-
-			host1 ='localhost'
-			puerto1=7500
-			socketdividir=socket.socket()
-			socketdividir.connect((host1,puerto1))
-			
-			socketdividir.send(self.palabra1)
-			sleep(SLEEP_TIME)
-			socketdividir.send(self.palabra3)
-			self.respuesta = socketdividir.recv(1024)
-			socketdividir.close()
-
-			print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la dividir es ', self.respuesta
-
-		if(self.palabra2 == 'potencia' or self.palabra2 == '^'):
-
-			host1 ='localhost'
-			puerto1=8000
-			socketpotencia=socket.socket()
-			socketpotencia.connect((host1,puerto1))
-			
-			socketpotencia.send(self.palabra1)
-			sleep(SLEEP_TIME)
-			socketpotencia.send(self.palabra3)
-			self.respuesta = socketpotencia.recv(1024)
-			socketpotencia.close()
-
-
-			print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la potencia es ', self.respuesta
-		if(self.palabra2 == 'logaritmo'):
-
-			host1 ='localhost'
-			puerto1=8501
-			socketlogaritmo=socket.socket()
-			socketlogaritmo.connect((host1,puerto1))
-			
-			socketlogaritmo.send(self.palabra1)
-			sleep(SLEEP_TIME)
-			socketlogaritmo.send(self.palabra3)
-			self.respuesta = socketlogaritmo.recv(1024)
-			socketlogaritmo.close()
-
-			print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la logaritmia es ', self.respuesta
-
-		if(self.palabra2 == 'radicacion'):
-
-
-			host1 ='localhost'
-			puerto1=9003
-			socketradicacion=socket.socket()
-			socketradicacion.connect((host1,puerto1))
-			
-			socketradicacion.send(self.palabra1)
-			sleep(SLEEP_TIME)
-			socketradicacion.send(self.palabra3)
-			self.respuesta = socketradicacion.recv(1024)
-			socketradicacion.close()
-
-			print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la radicacion es ', self.respuesta
-
+			#creamos socket y establecemos conecion por el host y puerto del server, y enviando los datos
+			self.respuesta=nuevosocket('localhost',6002,self.palabra1,self.palabra3)
+		elif(self.palabra2 == 'resta' or self.palabra2 == '-'):
+			self.respuesta=nuevosocket('localhost',6500,self.palabra1,self.palabra3)
+		elif(self.palabra2 == 'multiplicar' or self.palabra2 == '*'):
+			self.respuesta=nuevosocket('localhost',7000,self.palabra1,self.palabra3)
+		elif(self.palabra2 == 'dividir' or self.palabra2 == '/'):
+			self.respuesta=nuevosocket('localhost',7500,self.palabra1,self.palabra3)
+		elif(self.palabra2 == 'potencia' or self.palabra2 == '^'):
+			self.respuesta=nuevosocket('localhost',8000,self.palabra1,self.palabra3)
+		elif(self.palabra2 == 'logaritmo'):
+			self.respuesta=nuevosocket('localhost',8502,self.palabra1,self.palabra3)
+		elif(self.palabra2 == 'radicacion'):
+			self.respuesta=nuevosocket('localhost',9004,self.palabra1,self.palabra3)
+		else:
+			print 'No exite la operacion, servidor de la operacion no encontrado, por favor digite nuevamente'
+		#mensaje del server
+		print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la ',self.palabra2 ,' es ' , self.respuesta
 		self.request.send(self.respuesta)
-		
 
 def main():
-		print 'taller-socket'
+		print 'Server mediador'
 		host= 'localhost'
-		puerto= 9502
+		puerto= 9509
 		server1=SocketServer.TCPServer((host,puerto),miHandler)
 		print "server corriendo"
 		server1.serve_forever()
