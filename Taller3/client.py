@@ -2,7 +2,7 @@ import socket
 
 print 'Taller 2 - Calculadora 8 servidores'
 host ='localhost'
-puerto=9509
+puerto=9510
 socket1=socket.socket()
 #definimos la conecion por un puerto y un host
 socket1.connect((host,puerto))

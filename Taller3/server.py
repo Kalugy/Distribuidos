@@ -53,27 +53,36 @@ class miHandler(SocketServer.BaseRequestHandler):
 			sleep(SLEEP_TIME)
 			self.request.send('6002')
 
-
-			#creamos socket y establecemos conecion por el host y puerto del server, y enviando los datos
-			#self.respuesta=nuevosocket('localhost',6002,self.palabra1,self.palabra3)
 		elif(self.palabra2 == 'resta' or self.palabra2 == '-'):
-			pass
-			#self.respuesta=nuevosocket('localhost',6500,self.palabra1,self.palabra3)
+			self.request.send('localhost')
+			sleep(SLEEP_TIME)
+			self.request.send('6500')
+
 		elif(self.palabra2 == 'multiplicar' or self.palabra2 == '*'):
-			pass
-			#self.respuesta=nuevosocket('localhost',7000,self.palabra1,self.palabra3)
+			self.request.send('localhost')
+			sleep(SLEEP_TIME)
+			self.request.send('7000')
+			
 		elif(self.palabra2 == 'dividir' or self.palabra2 == '/'):
-			pass
-			#self.respuesta=nuevosocket('localhost',7500,self.palabra1,self.palabra3)
+			self.request.send('localhost')
+			sleep(SLEEP_TIME)
+			self.request.send('7500')
+			
 		elif(self.palabra2 == 'potencia' or self.palabra2 == '^'):
-			pass
-			#self.respuesta=nuevosocket('localhost',8000,self.palabra1,self.palabra3)
+			self.request.send('localhost')
+			sleep(SLEEP_TIME)
+			self.request.send('8000')
+			
 		elif(self.palabra2 == 'logaritmo'):
-			pass
-			#self.respuesta=nuevosocket('localhost',8502,self.palabra1,self.palabra3)
+			self.request.send('localhost')
+			sleep(SLEEP_TIME)
+			self.request.send('8500')
+			
 		elif(self.palabra2 == 'radicacion'):
-			pass
-			#self.respuesta=nuevosocket('localhost',9004,self.palabra1,self.palabra3)
+			self.request.send('localhost')
+			sleep(SLEEP_TIME)
+			self.request.send('9000')
+			
 		else:
 			print 'No exite la operacion, servidor de la operacion no encontrado, por favor digite nuevamente'
 		#mensaje del server
@@ -83,7 +92,7 @@ class miHandler(SocketServer.BaseRequestHandler):
 def main():
 		print 'Server mediador'
 		host= 'localhost'
-		puerto= 9509
+		puerto= 9510
 		server1=SocketServer.TCPServer((host,puerto),miHandler)
 		print "server corriendo"
 		server1.serve_forever()
