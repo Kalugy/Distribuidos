@@ -3,7 +3,7 @@ import socket
 import math
 from time import sleep
 #al momento de enviar dos datos al servidor debe esperar este tiempo:
-SLEEP_TIME = 0.1
+SLEEP_TIME = 0.00001
 
 #creacion de sockets para la conexion
 def nuevosocket(host_name,puerto,palabra1,palabra3):
