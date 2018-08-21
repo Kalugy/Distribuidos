@@ -49,25 +49,36 @@ class miHandler(SocketServer.BaseRequestHandler):
 		print "aca cuantas veces encontro el signo",self.cuenta
 		#dependiendo la operacion (palabra2) entrara al if
 		if(self.palabra2 == 'suma' or self.palabra2 == '+'):
+			self.request.send('localhost')
+			sleep(SLEEP_TIME)
+			self.request.send('6002')
+
+
 			#creamos socket y establecemos conecion por el host y puerto del server, y enviando los datos
-			self.respuesta=nuevosocket('localhost',6002,self.palabra1,self.palabra3)
+			#self.respuesta=nuevosocket('localhost',6002,self.palabra1,self.palabra3)
 		elif(self.palabra2 == 'resta' or self.palabra2 == '-'):
-			self.respuesta=nuevosocket('localhost',6500,self.palabra1,self.palabra3)
+			pass
+			#self.respuesta=nuevosocket('localhost',6500,self.palabra1,self.palabra3)
 		elif(self.palabra2 == 'multiplicar' or self.palabra2 == '*'):
-			self.respuesta=nuevosocket('localhost',7000,self.palabra1,self.palabra3)
+			pass
+			#self.respuesta=nuevosocket('localhost',7000,self.palabra1,self.palabra3)
 		elif(self.palabra2 == 'dividir' or self.palabra2 == '/'):
-			self.respuesta=nuevosocket('localhost',7500,self.palabra1,self.palabra3)
+			pass
+			#self.respuesta=nuevosocket('localhost',7500,self.palabra1,self.palabra3)
 		elif(self.palabra2 == 'potencia' or self.palabra2 == '^'):
-			self.respuesta=nuevosocket('localhost',8000,self.palabra1,self.palabra3)
+			pass
+			#self.respuesta=nuevosocket('localhost',8000,self.palabra1,self.palabra3)
 		elif(self.palabra2 == 'logaritmo'):
-			self.respuesta=nuevosocket('localhost',8502,self.palabra1,self.palabra3)
+			pass
+			#self.respuesta=nuevosocket('localhost',8502,self.palabra1,self.palabra3)
 		elif(self.palabra2 == 'radicacion'):
-			self.respuesta=nuevosocket('localhost',9004,self.palabra1,self.palabra3)
+			pass
+			#self.respuesta=nuevosocket('localhost',9004,self.palabra1,self.palabra3)
 		else:
 			print 'No exite la operacion, servidor de la operacion no encontrado, por favor digite nuevamente'
 		#mensaje del server
-		print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la ',self.palabra2 ,' es ' , self.respuesta
-		self.request.send(self.respuesta)
+		#print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la ',self.palabra2 ,' es ' , self.respuesta
+		#self.request.send(self.respuesta)
 
 def main():
 		print 'Server mediador'
