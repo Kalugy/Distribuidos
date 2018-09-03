@@ -6,7 +6,7 @@ class RequestHandler(SimpleXMLRPCRequestHandler):
     rpc_paths = ('/RPC2',)
 
 # Create server
-server = SimpleXMLRPCServer(("localhost", 6005),
+server = SimpleXMLRPCServer(("localhost", 7500),
                             requestHandler=RequestHandler)
 server.register_introspection_functions()
 
@@ -15,8 +15,8 @@ server.register_introspection_functions()
 # Register an instance; all the methods of the instance are
 # published as XML-RPC methods (in this case, just 'div').
 class MyFuncs:
-    def suma(self, x, y):
-        return float(x) + float(y)
+    def dividir(self, x, y):
+        return float(x) / float(y)
 
 
 server.register_instance(MyFuncs())

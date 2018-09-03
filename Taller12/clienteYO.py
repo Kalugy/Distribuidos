@@ -31,7 +31,7 @@ class SimpleThreadedXMLRPCServer(SocketServer.ThreadingMixIn, SimpleXMLRPCServer
 class ServerThread(threading.Thread):
     def __init__(self):
          threading.Thread.__init__(self)
-         self.localServer = SimpleThreadedXMLRPCServer(("localhost",10035))
+         self.localServer = SimpleThreadedXMLRPCServer(("localhost",10005))
          
          self.localServer.register_instance(MyFuncs())
 
@@ -45,7 +45,7 @@ print "Listo servidor."
 class ClientThread(threading.Thread):
     def __init__(self):
 		threading.Thread.__init__(self)
-		self.s = xmlrpclib.ServerProxy('http://localhost:10036   ')
+		self.s = xmlrpclib.ServerProxy('http://localhost:10006')
 
     def run(self):
         time.sleep(3)
@@ -81,24 +81,38 @@ class ClientThread(threading.Thread):
 
             elif(palabra2 == 'resta' or palabra2 == '-'):
 
+                puerto1= self.s.sresta()
+                servidor2 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
                 
-                
-                print self.s.resta(palabra1,palabra3)
+                print servidor2.resta(palabra1,palabra3)
 
             elif(palabra2 == 'multiplicar' or palabra2 == '*'):
-                print self.s.multiplicar(palabra1,palabra3)
+
+                puerto1= self.s.smultiplicar()
+                servidor3 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+
+                print servidor3.multiplicar(palabra1,palabra3)
 
             elif(palabra2 == 'dividir' or palabra2 == '/'):
-                print self.s.dividir(palabra1,palabra3)
+                puerto1= self.s.sdividir()
+                servidor4 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print servidor4.dividir(palabra1,palabra3)
 
             elif(palabra2 == 'potencia' or palabra2 == '^'):
-                print self.s.potencia(palabra1,palabra3)
+                puerto1= self.s.spotencia()
+                servidor5 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+
+                print servidor5.potencia(palabra1,palabra3)
 
             elif(palabra2 == 'logaritmo'):
-                print self.s.logaritmo(palabra1,palabra3)
+                puerto1= self.s.slogaritmo()
+                servidor6 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print servidor6.logaritmo(palabra1,palabra3)
 
             elif(palabra2 == 'radicacion'):
-                print self.s.radicacion(palabra1,palabra3)
+                puerto1= self.s.sradicacion()
+                servidor7 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print servidor7.radicacion(palabra1,palabra3)
 
             elif(self.num == 'salir') :
                 self.fin=1

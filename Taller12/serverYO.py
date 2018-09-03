@@ -12,27 +12,12 @@ import sys
 class RequestHandler(SimpleXMLRPCRequestHandler):
     rpc_paths = ('/RPC2',)
 
-# Create server
-
-
-
-'''servidorresta = xmlrpclib.ServerProxy('http://localhost:6502')
-servidor3 = xmlrpclib.ServerProxy('http://localhost:7000')
-servidor4 = xmlrpclib.ServerProxy('http://localhost:7500')
-servidor5= xmlrpclib.ServerProxy('http://localhost:8000')
-servidor6 = xmlrpclib.ServerProxy('http://localhost:8500')
-servidor7 = xmlrpclib.ServerProxy('http://localhost:9000')
-
-'''
-
-
-
 
 class MyFuncs:
     def ssuma(self):
         return 6006
     def sresta(self):
-        return 6502
+        return 6500
     def smultiplicar(self):
         return 7000
     def sdividir(self):
@@ -42,7 +27,7 @@ class MyFuncs:
     def slogaritmo(self):
         return 8500
     def sradicacion(self):
-        return 9001
+        return 9000
 
 
 
@@ -54,7 +39,7 @@ class SimpleThreadedXMLRPCServer(SocketServer.ThreadingMixIn, SimpleXMLRPCServer
 class ServerThread(threading.Thread):
     def __init__(self):
          threading.Thread.__init__(self)
-         self.localServer = SimpleThreadedXMLRPCServer(("localhost",10036))
+         self.localServer = SimpleThreadedXMLRPCServer(("localhost",10006))
          
          self.localServer.register_instance(MyFuncs())
          
@@ -69,7 +54,7 @@ print "Listo servidor."
 class ClientThread(threading.Thread):
     def __init__(self):
         threading.Thread.__init__(self)
-        self.s = xmlrpclib.ServerProxy('http://localhost:10035')
+        self.s = xmlrpclib.ServerProxy('http://localhost:10005')
 
     def run(self):
         time.sleep(3)
@@ -99,7 +84,7 @@ class ClientThread(threading.Thread):
 
 
             if(palabra2 == 'suma' or palabra2 == '+'):
-                print self.s.suma(palabra1,palabra3)
+                print self.s.suma()
             elif(palabra2 == 'resta' or palabra2 == '-'):
                 print self.s.resta(palabra1,palabra3)
 

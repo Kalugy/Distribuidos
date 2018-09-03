@@ -9,7 +9,6 @@ import time
 import math
 import sys
 
-
 class MyFuncs:
     def suma(self, x, y):
         return float(x) + float(y)
@@ -32,8 +31,8 @@ class SimpleThreadedXMLRPCServer(SocketServer.ThreadingMixIn, SimpleXMLRPCServer
 class ServerThread(threading.Thread):
     def __init__(self):
          threading.Thread.__init__(self)
-         self.localServer = SimpleThreadedXMLRPCServer(("localhost",10028))
-        
+         self.localServer = SimpleThreadedXMLRPCServer(("localhost",10039))
+         
          self.localServer.register_instance(MyFuncs())
 
     def run(self):
@@ -45,8 +44,8 @@ print "Listo servidor."
 
 class ClientThread(threading.Thread):
     def __init__(self):
-        threading.Thread.__init__(self)
-        self.s = xmlrpclib.ServerProxy('http://localhost:10027')
+		threading.Thread.__init__(self)
+		self.s = xmlrpclib.ServerProxy('http://localhost:10038   ')
 
     def run(self):
         time.sleep(3)
@@ -97,12 +96,13 @@ class ClientThread(threading.Thread):
 
             elif(self.num == 'salir') :
                 self.fin=1
+
                 print "adios" 
-                sys.exit()      
+                sys.exit()    
             else:
                 print 'No exite la operacion, servidor de la operacion no encontrado, por favor digite nuevamente'
 
-       
+           
 
 
 client = ClientThread()

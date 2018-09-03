@@ -31,7 +31,7 @@ class SimpleThreadedXMLRPCServer(SocketServer.ThreadingMixIn, SimpleXMLRPCServer
 class ServerThread(threading.Thread):
     def __init__(self):
          threading.Thread.__init__(self)
-         self.localServer = SimpleThreadedXMLRPCServer(("localhost",10031))
+         self.localServer = SimpleThreadedXMLRPCServer(("localhost",10072))
          
          self.localServer.register_instance(MyFuncs())
 
@@ -45,7 +45,7 @@ print "Listo servidor."
 class ClientThread(threading.Thread):
     def __init__(self):
 		threading.Thread.__init__(self)
-		self.s = xmlrpclib.ServerProxy('http://localhost:10032   ')
+		self.s = xmlrpclib.ServerProxy('http://localhost:10073 ')
 
     def run(self):
         time.sleep(3)
@@ -77,22 +77,22 @@ class ClientThread(threading.Thread):
             if(palabra2 == 'suma' or palabra2 == '+'):
                 print self.s.ssuma(palabra1,palabra3)
             elif(palabra2 == 'resta' or palabra2 == '-'):
-                print self.s.resta(palabra1,palabra3)
+                print self.s.sresta(palabra1,palabra3)
 
             elif(palabra2 == 'multiplicar' or palabra2 == '*'):
-                print self.s.multiplicar(palabra1,palabra3)
+                print self.s.smultiplicar(palabra1,palabra3)
 
             elif(palabra2 == 'dividir' or palabra2 == '/'):
-                print self.s.dividir(palabra1,palabra3)
+                print self.s.sdividir(palabra1,palabra3)
 
             elif(palabra2 == 'potencia' or palabra2 == '^'):
-                print self.s.potencia(palabra1,palabra3)
+                print self.s.spotencia(palabra1,palabra3)
 
             elif(palabra2 == 'logaritmo'):
-                print self.s.logaritmo(palabra1,palabra3)
+                print self.s.slogaritmo(palabra1,palabra3)
 
             elif(palabra2 == 'radicacion'):
-                print self.s.radicacion(palabra1,palabra3)
+                print self.s.sradicacion(palabra1,palabra3)
 
             elif(self.num == 'salir') :
                 self.fin=1
