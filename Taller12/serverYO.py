@@ -84,24 +84,39 @@ class ClientThread(threading.Thread):
 
 
             if(palabra2 == 'suma' or palabra2 == '+'):
-                print self.s.suma()
+                puerto1= self.s.ssuma()
+                server = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print server.suma(palabra1,palabra3)
+
             elif(palabra2 == 'resta' or palabra2 == '-'):
-                print self.s.resta(palabra1,palabra3)
+                puerto1= self.s.sresta()
+                server2 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print server2.resta(palabra1,palabra3)
 
             elif(palabra2 == 'multiplicar' or palabra2 == '*'):
-                print self.s.multiplicar(palabra1,palabra3)
+                puerto1= self.s.smultiplicar()
+                server3 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print server3.multiplicar(palabra1,palabra3)
 
             elif(palabra2 == 'dividir' or palabra2 == '/'):
-                print self.s.dividir(palabra1,palabra3)
+                puerto1= self.s.sdividir()
+                server4 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print server4.dividir(palabra1,palabra3)
 
             elif(palabra2 == 'potencia' or palabra2 == '^'):
-                print self.s.potencia(palabra1,palabra3)
+                puerto1= self.s.spotencia()
+                server5 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print server5.potencia(palabra1,palabra3)
 
             elif(palabra2 == 'logaritmo'):
-                print self.s.logaritmo(palabra1,palabra3)
+                puerto1= self.s.slogaritmo()
+                server6 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print server6.logaritmo(palabra1,palabra3)
 
             elif(palabra2 == 'radicacion'):
-                print self.s.radicacion(palabra1,palabra3)
+                puerto1= self.s.sradicacion()
+                server7 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
+                print server7.radicacion(palabra1,palabra3)
 
             elif(self.num == 'salir') :
                 self.fin=1

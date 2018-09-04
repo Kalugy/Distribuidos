@@ -9,21 +9,25 @@ import time
 import math
 import sys
 
+class RequestHandler(SimpleXMLRPCRequestHandler):
+    rpc_paths = ('/RPC2',)
+
+
 class MyFuncs:
-    def suma(self, x, y):
-        return float(x) + float(y)
-    def resta(self, x, y):
-        return float(x) - float(y)
-    def multiplicar(self, x, y):
-        return float(x) * float(y)
-    def dividir(self, x, y):
-        return float(x) / float(y)
-    def potencia(self, x, y):
-        return float(x) ** float(y)
-    def radicacion(self, x, y):
-        return math.pow(float(x), float(y))
-    def logaritmo(self, x, y):
-        return math.log(float(x), float(y))
+    def ssuma(self):
+        return 6006
+    def sresta(self):
+        return 6500
+    def smultiplicar(self):
+        return 7000
+    def sdividir(self):
+        return 7500
+    def spotencia(self):
+        return 8000
+    def slogaritmo(self):
+        return 8500
+    def sradicacion(self):
+        return 9000
 
 class SimpleThreadedXMLRPCServer(SocketServer.ThreadingMixIn, SimpleXMLRPCServer.SimpleXMLRPCServer):
         pass
@@ -80,17 +84,13 @@ class ClientThread(threading.Thread):
                 print servidor.suma(palabra1,palabra3)
 
             elif(palabra2 == 'resta' or palabra2 == '-'):
-
                 puerto1= self.s.sresta()
                 servidor2 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
-                
                 print servidor2.resta(palabra1,palabra3)
 
             elif(palabra2 == 'multiplicar' or palabra2 == '*'):
-
                 puerto1= self.s.smultiplicar()
                 servidor3 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
-
                 print servidor3.multiplicar(palabra1,palabra3)
 
             elif(palabra2 == 'dividir' or palabra2 == '/'):
@@ -101,7 +101,6 @@ class ClientThread(threading.Thread):
             elif(palabra2 == 'potencia' or palabra2 == '^'):
                 puerto1= self.s.spotencia()
                 servidor5 = xmlrpclib.ServerProxy('http://localhost: ' + str(puerto1) )
-
                 print servidor5.potencia(palabra1,palabra3)
 
             elif(palabra2 == 'logaritmo'):
