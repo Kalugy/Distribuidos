@@ -1,80 +1,120 @@
-import SocketServer
 import socket
+import sys
+import thread
 import math
-from time import sleep
 from numpy import array
 from numpy import *
-#al momento de enviar dos datos al servidor debe esperar este tiempo:
-SLEEP_TIME = 0.00001
 
-#creacion de sockets para la conexion
-def nuevosocket(host_name,puerto,palabra1,palabra3):
-	respuesta = ""
-	host1 =host_name
-	puerto1=puerto
-	socket_name=socket.socket()
-	socket_name.connect((host1,puerto1))
-	socket_name.send(palabra1)
-	sleep(SLEEP_TIME)
-	socket_name.send(palabra3)
-	respuesta = socket_name.recv(1024)
-	socket_name.close()
-	return respuesta
+def suma(numero1, numero2):
+	return numero1+numero2
+def resta(numero1, numero2):
+	return numero1-numero2
+def multiplicar(numero1, numero2):
+	return numero1*numero2
+def dividir(numero1, numero2):
+	return numero1/numero2
+def potencia(numero1, numero2):
+	return numero1**numero2
+def logaritmo(numero1, numero2):
+	return math.log(numero1,numero2)
+def radicacion(numero1, numero2):
+	return math.pow(numero1,numero2)
 
-class miHandler(SocketServer.BaseRequestHandler):
-	def handle(self):
-		#Recibe el num del cliente
-		self.num=str(self.request.recv(1024))
-		#defincion de variables locales
-		self.palabra1=""
-		self.palabra2=""
-		self.palabra3=""
-		self.a=0;
-		
-		self.cuenta=0
-		self.contador=0
-		#cuando cuantas veces esta un signo dentro de la palabra y las separa segun la cantidad de signos
-		for carac in self.num:
-		    if carac == ' ':
-				self.cuenta+=1
-		    else:
-			   self.contador+=1
-			   if self.cuenta==0:
-				   self.palabra1+=carac
-			   if self.cuenta==1:
-				   self.palabra2+=carac
-			   if self.cuenta==2:
-				   self.palabra3+=carac
-		#print "este es el contador",self.contador
-		#Recitifcamos que divida bien las palabras
-		print "word1",self.palabra1
-		print "word2",self.palabra2
-		print "word3",self.palabra3
-		#dependiendo la operacion (palabra3) entrara al if
-		if(self.palabra3 == '1' ):
-			self.a+=1
-			Grupo='grupo '+str(self.a)
-			
-			array=[Grupo,[" "," "]]
-		
-			print (array)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+s.bind(('', 9900	))
+s.listen(10)
 
 
-		elif(self.palabra3 == '2' ):
-			pass
-	
+def nuevogrupo(grupo):
+	grupo=[grupo,[" "," "]]
+	return grupo
+
+def connection(sc, addr):
+
+	num=str(sc.recv(1024))
+
+	palabra1=""
+	palabra2=""
+	palabra3=""
+	cuenta = 0
+	contador=0
+	a=0
+
+
+	for carac in num:
+		if carac == ' ':
+			cuenta+=1
 		else:
-			print 'No exite la operacion, servidor de la operacion no encontrado, por favor digite nuevamente'
-		#mensaje del server
-		#print 'los numeros recibidos son: ', self.palabra1, ' y ', self.palabra3, 'y la ',self.palabra2 ,' es ' , self.respuesta
-		#self.request.send(self.respuesta)
+		   contador+=1
+		   if cuenta==0:
+			   palabra1+=carac
+		   if cuenta==1:
+			   palabra2+=carac
+		   if cuenta==2:
+			   palabra3+=carac
 
-def main():
-		print 'Server mediador'
-		host= 'localhost'
-		puerto= 9512
-		server1=SocketServer.TCPServer((host,puerto),miHandler)
-		print "server corriendo"
-		server1.serve_forever()
+	if(palabra3 == '1' ):
+		
+		lineas = len(open('BD.txt').readlines())
+		print lineas
 
-main()
+		if(lineas==0):
+			p= 'Grupo 0' +' '+ palabra1 +' ' +str(addr[1])
+			f = open ('BD.txt','w')
+			f.write(p)
+			f.close()
+		elif(lineas>0):
+			p= 'Grupo ' + str(lineas) + ' '+ palabra1 +' ' +str(addr[1]) 
+			f = open ('BD.txt','a')
+			f.write('\n' + str(p))
+			f.close()
+		
+		
+	elif(palabra3 == '3' ):
+		
+
+		f = open ('BD.txt','r')
+		mensaje=f.read()
+		print (mensaje)
+		f.close()
+	elif(palabra3 == '4' ):
+		# abrimos el archivo solo de lectura
+		f = open("BD.txt","r")
+		 
+		# Creamos una lista con cada una de sus lineas
+		lineas = f.readlines()
+		 
+		# cerramos el archivo
+		f.close()
+		 
+		# abrimos el archivo pero vacio
+		f = open("BD.txt","w")
+		 
+		# recorremos todas las lineas
+		for linea in lineas:
+		    if linea!="linea 4"+"\n":
+		        f.write(linea)
+		 
+		# cerramos el archivo
+		f.close()
+
+		
+
+	sc.send(str(addr[1]))
+
+
+
+
+
+print "respondiendo..."
+
+while 1:
+
+    sc, addr = s.accept()
+    print "recibida conexion de la IP: " + str(addr[0]) + "puerto: " + str(addr[1])
+    print "\n"
+    thread.start_new_thread(connection,(sc,addr))
+
+sc.close()
+s.close()
