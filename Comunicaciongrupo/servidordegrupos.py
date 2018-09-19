@@ -22,7 +22,7 @@ def radicacion(numero1, numero2):
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.bind(('', 9929	))
+s.bind(('', 9935	))
 s.listen(10)
 
 
@@ -30,7 +30,7 @@ s.listen(10)
 def connection(sc, addr):
 
 	num=str(sc.recv(1024))
-
+	resulta=""
 	palabra1=""
 	palabra2=""
 	palabra3=""
@@ -65,12 +65,14 @@ def connection(sc, addr):
 			f = open ('BD.txt','w')
 			f.write(p)
 			f.close()
+			resulta="Crea nuevo grupo"
 		elif(lineas>0):
 			lineas1=lineas+1
 			p= '\nGrupo ' + str(lineas1) + ' '+ palabra1 +' ' +str(addr[1]) 
 			f = open ('BD.txt','a')
 			f.write(str(p))
 			f.close()
+			resulta="Creacion de grupo"
 		
 	#Asigna gente a un grupo
 	elif(palabra3 == '2' ):
@@ -96,6 +98,7 @@ def connection(sc, addr):
 			for linea in lineas:
 				if(a==int(palabra4)):
 					print "agregando"+ linea
+					resulta="agregando un nuevo miembro al grupo"
 					data1= linea.replace("\n", "")
 					data=data1+' '+palabra1+' '+str(addr[1]) 
 					f.write(data + "\n")
@@ -122,7 +125,9 @@ def connection(sc, addr):
 		mensaje=f.read()
 		print (mensaje)
 		f.close()
-
+		resulta="Mostrando elementos"
+	#un pequeño bug cuando borro todos los elementos, tambien cuando agrego un host y luego
+	#intento crear un otro grupo, hay un salto de linea que me crea solo aca en eliminar
 	#siempre elimina el ultimo grupo de la lista
 	elif(palabra3 == '4' ):
 		# abrimos el archivo solo de lectura
@@ -142,17 +147,20 @@ def connection(sc, addr):
 			# recorremos todas las lineas expeto la ultima que es la que borramos
 			
 			for linea in lineas:
-			    if(a<cantidaddegrupos):
-			        f.write(linea)
-			        a=a+1
-			        print a
-			 
+				if(a<cantidaddegrupos):
+					f.write(linea)
+					a=a+1
+					print a
+					resulta="borrado el ultimo elemento"
+
+			 	
 			# cerramos el archivo
 			f.close()
 
+
 		
 
-	sc.send(str(addr[1]))
+	sc.send(resulta)
 
 
 
