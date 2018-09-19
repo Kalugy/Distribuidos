@@ -22,13 +22,10 @@ def radicacion(numero1, numero2):
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.bind(('', 9900	))
+s.bind(('', 9929	))
 s.listen(10)
 
 
-def nuevogrupo(grupo):
-	grupo=[grupo,[" "," "]]
-	return grupo
 
 def connection(sc, addr):
 
@@ -37,6 +34,7 @@ def connection(sc, addr):
 	palabra1=""
 	palabra2=""
 	palabra3=""
+	palabra4=""
 	cuenta = 0
 	contador=0
 	a=0
@@ -53,24 +51,70 @@ def connection(sc, addr):
 			   palabra2+=carac
 		   if cuenta==2:
 			   palabra3+=carac
+		   if cuenta==3:
+			   palabra4+=carac
 
 	if(palabra3 == '1' ):
 		
+		#creacion de grupos
 		lineas = len(open('BD.txt').readlines())
 		print lineas
 
 		if(lineas==0):
-			p= 'Grupo 0' +' '+ palabra1 +' ' +str(addr[1])
+			p= 'Grupo 1' +' '+ palabra1 +' ' +str(addr[1])
 			f = open ('BD.txt','w')
 			f.write(p)
 			f.close()
 		elif(lineas>0):
-			p= 'Grupo ' + str(lineas) + ' '+ palabra1 +' ' +str(addr[1]) 
+			lineas1=lineas+1
+			p= '\nGrupo ' + str(lineas1) + ' '+ palabra1 +' ' +str(addr[1]) 
 			f = open ('BD.txt','a')
-			f.write('\n' + str(p))
+			f.write(str(p))
 			f.close()
 		
-		
+	#Asigna gente a un grupo
+	elif(palabra3 == '2' ):
+		print "hola "
+		print palabra4+"  "
+		# abrimos el archivo solo de lectura
+		f = open("BD.txt","r")
+		 
+		# Creamos una lista con cada una de sus lineas
+		lineas = f.readlines()
+		cantidaddegrupos= len(lineas)
+		print lineas
+		# cerramos el archivo
+		f.close()
+		if cantidaddegrupos==0:
+			print "no existen grupos"
+		else:	
+			# abrimos el archivo pero vacio
+			f = open("BD.txt","w")
+			a=1
+			# recorremos todas las lineas expeto la ultima que es la que borramos
+			
+			for linea in lineas:
+				if(a==int(palabra4)):
+					print "agregando"+ linea
+					data1= linea.replace("\n", "")
+					data=data1+' '+palabra1+' '+str(addr[1]) 
+					f.write(data + "\n")
+					a=a+1					
+					#f.write(str(data))
+					
+				elif(a<=cantidaddegrupos):
+					f.write(linea)
+					a=a+1
+				else:
+					print "grupo no existe"    
+
+			    
+			# cerramos el archivo
+			f.close()
+
+
+
+	#muestra los grupos
 	elif(palabra3 == '3' ):
 		
 
@@ -78,26 +122,33 @@ def connection(sc, addr):
 		mensaje=f.read()
 		print (mensaje)
 		f.close()
+
+	#siempre elimina el ultimo grupo de la lista
 	elif(palabra3 == '4' ):
 		# abrimos el archivo solo de lectura
 		f = open("BD.txt","r")
 		 
 		# Creamos una lista con cada una de sus lineas
 		lineas = f.readlines()
-		 
+		cantidaddegrupos= len(lineas)
 		# cerramos el archivo
 		f.close()
-		 
-		# abrimos el archivo pero vacio
-		f = open("BD.txt","w")
-		 
-		# recorremos todas las lineas
-		for linea in lineas:
-		    if linea!="linea 4"+"\n":
-		        f.write(linea)
-		 
-		# cerramos el archivo
-		f.close()
+		if cantidaddegrupos==0:
+			print "no existen grupos"
+		else:	
+			# abrimos el archivo pero vacio
+			f = open("BD.txt","w")
+			a=1
+			# recorremos todas las lineas expeto la ultima que es la que borramos
+			
+			for linea in lineas:
+			    if(a<cantidaddegrupos):
+			        f.write(linea)
+			        a=a+1
+			        print a
+			 
+			# cerramos el archivo
+			f.close()
 
 		
 
