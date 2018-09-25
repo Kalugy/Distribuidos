@@ -13,7 +13,7 @@ formato = "%H:%M:%S"
 
 s = socket.socket()
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-puerto=9960
+puerto=9992
 s.connect(('localhost', puerto))
 
 
@@ -52,7 +52,7 @@ def actualizar (dato):
 	dato=hhmmss
 	return hhmmss
 
-dato="08:55:55"
+dato="11:54:10"
 a=0
 
 while True:
@@ -70,7 +70,7 @@ while True:
 		a=1
 		print 'mensaje enviado'
 		respuesta=s.recv(1024)
-		print respuesta
+		
 		ho=respuesta
 	
  
