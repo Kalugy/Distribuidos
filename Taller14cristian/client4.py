@@ -53,7 +53,7 @@ def actualizar (dato):
 	dato=hhmmss
 	return hhmmss
 
-dato="11:54:10"
+dato="11:44:10"
 a=0
 
 #cada 5 segundos rectificamos el tiempo con el server

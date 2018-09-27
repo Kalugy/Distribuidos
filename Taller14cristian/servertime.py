@@ -67,9 +67,9 @@ def connection(sc, addr):
 		segundosactual=actualizarseg()
 		#segundosactual=int(segundosactual)+1
 		resultado=num
-		print "alo"
-		print (str(segundosactual)) 
-		print (str(segundos))
+		#print "alo"
+		#print (str(segundosactual)) 
+		#print (str(segundos))
 
 		if(segundosactual!=segundos):
 			#if para pasar de segundos en el formato (cuando es mayor)
