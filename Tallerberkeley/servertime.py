@@ -14,7 +14,7 @@ import time
 #SERVER
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.bind(('', 7001))
+s.bind(('', 7017))
 s.listen(10)
 
 def prender(puerto):
@@ -25,7 +25,7 @@ def prender(puerto):
 	s1.connect(('localhost', int(puerto)))
 
 	print "hola estoy prendiendolo" 
-	s1.send("False")
+	s1.send("0")
 	Aquiestalahora1=s1.recv(1024)
 	print Aquiestalahora1
 	
