@@ -20,8 +20,8 @@ print "termina"
 #conexion al server
 s = socket.socket()
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-puerto=7043
-puerto2="11177"
+puerto=7042
+puerto2="11179	"
 s.connect(('localhost', puerto))
 
 
@@ -29,7 +29,7 @@ s.connect(('localhost', puerto))
 
 print 'Bienvenido al client con algoritmo berkeley'
 
-dato="11:54:10"
+dato="11:40:10"
 
 import threading #libreria para el manejo de hilos
 #Declaracion de Clase
@@ -141,7 +141,7 @@ que = Queue.Queue()
 
 i=0
 h=True
-result="11:54:10"
+result="11:40:10"
 
 
 s1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -181,7 +181,7 @@ def connection(sc1, addr1):
 		print num
 		
 
-		result="11:54:10"
+		result="11:40:10"
 		hor=actualizar(num,result,h)
 		h=False
 
