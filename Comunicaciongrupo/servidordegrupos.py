@@ -1,9 +1,10 @@
 import socket
 import sys
-import thread
+import _thread
 import math
-from numpy import array
 from numpy import *
+from numpy import array
+
 
 def suma(numero1, numero2):
 	return numero1+numero2
@@ -22,7 +23,7 @@ def radicacion(numero1, numero2):
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.bind(('', 9935	))
+s.bind(('', 9987 ))
 s.listen(10)
 
 
@@ -58,7 +59,7 @@ def connection(sc, addr):
 		
 		#creacion de grupos
 		lineas = len(open('BD.txt').readlines())
-		print lineas
+		print (lineas)
 
 		if(lineas==0):
 			p= 'Grupo 1' +' '+ palabra1 +' ' +str(addr[1])
@@ -76,19 +77,19 @@ def connection(sc, addr):
 		
 	#Asigna gente a un grupo
 	elif(palabra3 == '2' ):
-		print "hola "
-		print palabra4+"  "
+		print ("hola ")
+		print (palabra4+"  ")
 		# abrimos el archivo solo de lectura
 		f = open("BD.txt","r")
 		 
 		# Creamos una lista con cada una de sus lineas
 		lineas = f.readlines()
 		cantidaddegrupos= len(lineas)
-		print lineas
+		print (lineas)
 		# cerramos el archivo
 		f.close()
 		if cantidaddegrupos==0:
-			print "no existen grupos"
+			print ("no existen grupos")
 		else:	
 			# abrimos el archivo pero vacio
 			f = open("BD.txt","w")
@@ -97,7 +98,7 @@ def connection(sc, addr):
 			
 			for linea in lineas:
 				if(a==int(palabra4)):
-					print "agregando"+ linea
+					print ("agregando"+ linea)
 					resulta="agregando un nuevo miembro al grupo"
 					data1= linea.replace("\n", "")
 					data=data1+' '+palabra1+' '+str(addr[1]) 
@@ -109,7 +110,7 @@ def connection(sc, addr):
 					f.write(linea)
 					a=a+1
 				else:
-					print "grupo no existe"    
+					print ("grupo no existe")    
 
 			    
 			# cerramos el archivo
@@ -139,7 +140,7 @@ def connection(sc, addr):
 		# cerramos el archivo
 		f.close()
 		if cantidaddegrupos==0:
-			print "no existen grupos"
+			print ("no existen grupos")
 		else:	
 			# abrimos el archivo pero vacio
 			f = open("BD.txt","w")
@@ -150,7 +151,7 @@ def connection(sc, addr):
 				if(a<cantidaddegrupos):
 					f.write(linea)
 					a=a+1
-					print a
+					print (a)
 					resulta="borrado el ultimo elemento"
 
 			 	
@@ -166,13 +167,13 @@ def connection(sc, addr):
 
 
 
-print "respondiendo..."
+print ("respondiendo...")
 
 while 1:
 
     sc, addr = s.accept()
-    print "recibida conexion de la IP: " + str(addr[0]) + "puerto: " + str(addr[1])
-    print "\n"
+    print ("recibida conexion de la IP: " + str(addr[0]) + "puerto: " + str(addr[1]))
+    print ("\n")
     thread.start_new_thread(connection,(sc,addr))
 
 sc.close()
