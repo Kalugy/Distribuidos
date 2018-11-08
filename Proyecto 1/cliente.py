@@ -16,11 +16,12 @@ def menu():
 def conection(ip, port):
 	s = socket.socket()
 	s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-	s.connect((ip, port))
+	s.connect((ip, int(port)))
 	dato=menu()
+	print "paso"
 	s.send(dato)
 	respuesta=s.recv(1024)
-	print (respuesta)
+	print "El resultado de la operacion es : ", respuesta
 	s.close()
 
 def main():
@@ -30,16 +31,17 @@ def main():
 def pregunta():
 	s = socket.socket()
 	s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-	s.connect(('localhost', 9989))
+	s.connect(('localhost', 9950))
 	s.send("hola")
 	respuesta=s.recv(1024)
 	ip=respuesta.split("?")[0]
 	port=respuesta.split("?")[1]
 	s.close()
-
+	print ip, port
 	return ip,port
 	
 main()
+
 
 
 
