@@ -5,6 +5,7 @@ import time
 import datetime
 
 #para contador interno del client
+#contador con hilos y funcion 
 from datetime import datetime
 formato = "%H:%M:%S"
 

@@ -8,21 +8,22 @@ from numpy import array
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.bind(('', 9950 ))
+s.bind(('', 9917 ))
 s.listen(10)
 
 array={}
 
 def connection(sc, addr):
-	num=str(sc.recv(1024))
-	if num == "hola":
-		actualizar(array)
-		print num
-		port, ip = comprobar(array)
-		print port, ip 
-		
-		sc.send(str(ip) + "?" + str(port))
-		asignar(array)
+	while True:
+		num=str(sc.recv(1024))
+		if num == "hola":
+			actualizar(array)
+			print num
+			port, ip = comprobar(array)
+			print port, ip 
+			
+			sc.send(str(ip) + "?" + str(port))
+			asignar(array)
 
 
 def arreglo( disponible, ids, port, ip,memoria,cpu ):
@@ -37,7 +38,7 @@ def arreglo( disponible, ids, port, ip,memoria,cpu ):
 	return lista
 
 def asignar(array):
-	servidor1=arreglo(0, 1,9971,'localhost',3,44)
+	servidor1=arreglo(0, 1,8016,'localhost',3,44)
 	array['servidor1']=servidor1
 
 
@@ -52,10 +53,11 @@ def actualizar(array):
 			s1.connect((servidor["ip"], int(servidor["port"])))
 			s1.send("disponible")
 			respuesta=s1.recv(1024)
+			
+
 			print respuesta
 
 			servidor["disponible"]=respuesta.split("?")[0]
-			servidor["port"]=respuesta.split("?")[1]
 			s.close()
 			
 		cont=cont+1
