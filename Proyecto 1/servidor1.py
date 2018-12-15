@@ -8,8 +8,9 @@ from numpy import array
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.bind(('', 9917 ))
+s.bind(('', 9929 ))
 s.listen(10)
+
 
 array={}
 
@@ -38,7 +39,7 @@ def arreglo( disponible, ids, port, ip,memoria,cpu ):
 	return lista
 
 def asignar(array):
-	servidor1=arreglo(0, 1,8016,'localhost',3,44)
+	servidor1=arreglo(0, 1,8025,'localhost',3,44)
 	array['servidor1']=servidor1
 
 
@@ -94,6 +95,10 @@ while 1:
     print "recibida conexion de la IP: " + str(addr[0]) + "puerto: " + str(addr[1])
     print "\n"
     thread.start_new_thread(connection,(sc,addr))
+
+    
+
+
 
 sc.close()
 s.close()

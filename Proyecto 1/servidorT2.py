@@ -6,7 +6,7 @@ from numpy import *
 from numpy import array
 
 
-puertoSS=8025		
+puertoSS=8040		
 
 s1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -175,10 +175,6 @@ sc.close()
 s.close()
 
 """
-
-
-
-
 
 
 

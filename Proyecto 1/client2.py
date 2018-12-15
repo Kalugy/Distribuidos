@@ -5,7 +5,7 @@ from numpy import array
 import re
 
 
-clientport= 9917
+clientport= 9930
 
 def menu():
 	print "Bienvenido"
