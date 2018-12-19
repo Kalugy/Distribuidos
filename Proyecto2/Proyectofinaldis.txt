@@ -1,0 +1,18 @@
+Desarrollar un sistema que permita simular la compartición de páginas en un sistema distribuido
+con las siguientes características:
+
+• Cada máquina debe compartir un espacio de páginas con todas las máquinas del sistema.
+• Cualquier máquina puede escribir en cualquiera de las páginas compartidas por las demás
+máquinas.
+• Siempre que una máquina use una página que esté compartida desde otra máquina, se debe
+verificar que no esté siendo usada por otra máquina. Si otra máquina intenta acceder a una
+página que está en uso, debe quedar en espera en una cola, para que una vez liberen la
+página, el sistema le permita acceso a la primera máquina que esté en la cola.
+• Las páginas deben migrar desde la máquina original a la máquina que la esté usando. Y debe
+regresar al dueño original una vez se termine el uso.
+• Cada máquina debe guardar un registro en un archivo de los accesos a cada una de las
+páginas que comparte.
+
+Integrantes:
+Nicolas Granada Ramirez.
+Julian Daniel Trujillo V.
